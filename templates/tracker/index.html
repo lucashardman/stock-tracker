@@ -3,5 +3,23 @@
 {% block content %}
 
     <h1>Página em construção</h1>
-
+    <form method="POST" action="{% url 'search' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="searchBar" class="form-label">Nome do ativo</label>
+            <input type="text" name="element_name" class="form-control" id="searchBar" placeholder="ativo">
+        </div>
+        <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-3">Pesquisar</button>
+        </div>
+    </form>
+    {% if stock %}
+        <div class="card w-50">
+            <div class="card-body">
+            <h5 class="card-title">{{ stock.name }}</h5>
+            <p class="card-text">{{ stock.price }}</p>
+            <a href="#" class="btn btn-primary">Button</a>
+            </div>
+        </div>
+    {% endif %}
 {% endblock %}
