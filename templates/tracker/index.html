@@ -15,13 +15,32 @@
             <div class="card-body">
                 <h5 class="card-title">{{ stock.name }}</h5>
                 <p class="card-text">R${{ stock.price }}</p>
-                <input type="text" name="element_name" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Limite máximo">
-                <input type="text" name="element_name" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Limite mínimo">
-                <input type="text" name="element_name" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Periodicidade">
-                <a href="#" class="btn btn-primary">Salvar</a>
+                <form method="POST" action="{% url 'persist' %}" class="d-flex search-form align-items-center">
+                    {% csrf_token %}
+                    <input type="text" name="max_val" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Limite máximo">
+                    <input type="text" name="min_val" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Limite mínimo">
+                    <input type="text" name="timmer" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Periodicidade">
+                    <input type="hidden" name="name" value="{{ stock.name }}">
+                    <input type="hidden" name="price" value="{{ stock.price }}">
+                    <button type="submit" class="search-btn btn btn-primary rounded-5 my-auto">Salvar</button>
+                </form>
             </div>
         </div>
     </div>
     {% endif %}
+    {% for dt in data %}
+    <div class="search-card-container">
+        <div class="card w-50 pt-3">
+            <div class="card-body">
+                <h5 class="card-title">{{ dt.name }}</h5>
+                <p class="card-text">Preço: R${{ dt.price }}</p>
+                <p class="card-text">Frequencia de atualização: {{ dt.timmer }} minutos</p>
+                <p class="card-text">Valor máximo: R${{ dt.max_val }}</p>
+                <p class="card-text">Valor mínimo: R${{ dt.min_val }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
 </section>
 {% endblock %}
