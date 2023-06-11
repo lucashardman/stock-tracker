@@ -1,25 +1,27 @@
 {% extends 'tracker/base.html' %}
 {% load static %}
 {% block content %}
-
-    <h1>Página em construção</h1>
-    <form method="POST" action="{% url 'search' %}">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="searchBar" class="form-label">Nome do ativo</label>
-            <input type="text" name="element_name" class="form-control" id="searchBar" placeholder="ativo">
-        </div>
-        <div class="col-auto">
-        <button type="submit" class="btn btn-primary mb-3">Pesquisar</button>
-        </div>
-    </form>
+<section class="banner" id="home">
+    <div class="search-container">
+        <form method="POST" action="{% url 'search' %}" class="d-flex search-form align-items-center">
+            {% csrf_token %}
+            <input type="text" name="element_name" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Digite o nome do ativo">
+            <button type="submit" class="search-btn btn btn-primary rounded-5 my-auto">Pesquisar</button>
+        </form>
+    </div>
     {% if stock %}
-        <div class="card w-50">
+    <div class="search-card-container">
+        <div class="card w-50 pt-3">
             <div class="card-body">
-            <h5 class="card-title">{{ stock.name }}</h5>
-            <p class="card-text">{{ stock.price }}</p>
-            <a href="#" class="btn btn-primary">Button</a>
+                <h5 class="card-title">{{ stock.name }}</h5>
+                <p class="card-text">R${{ stock.price }}</p>
+                <input type="text" name="element_name" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Limite máximo">
+                <input type="text" name="element_name" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Limite mínimo">
+                <input type="text" name="element_name" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Periodicidade">
+                <a href="#" class="btn btn-primary">Salvar</a>
             </div>
         </div>
+    </div>
     {% endif %}
+</section>
 {% endblock %}

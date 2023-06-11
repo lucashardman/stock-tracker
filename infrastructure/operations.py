@@ -6,8 +6,8 @@ def fetch_stock_price(symbol):
         stock = yf.Ticker(f'{symbol}.SA')
         return {
             'success': True,
-            'name': symbol,
-            'price': stock.history().tail(1)['Close'].iloc[0]
+            'name': str(symbol).upper(),
+            'price': "%.4f" % stock.history().tail(1)['Close'].iloc[0]
         }
     except:
         return {

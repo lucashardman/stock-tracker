@@ -51,10 +51,6 @@
   }
 }
 
-h1 {
-    color: #000;
-}
-
 .container {
   overflow: hidden;
 }
@@ -322,16 +318,15 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .banner {
   margin-top: 0;
   padding: 100px 0 100px 0;
-  background-image: url('/assets/img/bg-mobile.jpeg');
+  background-image: url('/static/assets/mobile-bg.jpg');
   background-position: top center;
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 1000px;
 }
 @media (min-width: 800px) {
-  /* apply these styles for screens wider than 768px */
   .banner {
-    background-image: url('/assets/img/banner-bg.png');
+    background-image: url('/static/assets/desktop-bg.jpg');
     padding: 260px 0 180px 0;
     min-height: auto;
   }
