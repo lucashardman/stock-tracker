@@ -9,6 +9,11 @@
             <button type="submit" class="search-btn btn btn-primary rounded-5 my-auto">Pesquisar</button>
         </form>
     </div>
+    {% if error == 'conflict' %}
+    <div class="alert alert-danger error-container" role="alert">
+        O ativo já está sendo acompanhado!
+    </div>
+    {% endif %}
     {% if stock %}
     <div class="search-card-container">
         <div class="card w-50 pt-3">
@@ -43,6 +48,5 @@
         </div>
     </div>
     {% endfor %}
-    
 </section>
 {% endblock %}

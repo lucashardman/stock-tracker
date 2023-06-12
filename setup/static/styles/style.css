@@ -774,3 +774,11 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 
+.error-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 40%;
+  margin: 0 auto;
+  margin-top: 5%;
+}

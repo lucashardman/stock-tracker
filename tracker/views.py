@@ -6,7 +6,19 @@ from datetime import datetime
 
 def index(request):
     data = Meilisearch().search('admin')
-    return render(request, 'tracker/index.html', {'data': data})
+    updated_data = []
+
+    error = request.GET.get('error', '')
+
+    for dt in data:
+        stock_data = fetch_stock_price(dt.get('name'))
+        temp = dt
+        temp['price'] = stock_data.get('price')
+        updated_data.append(temp)
+    return render(request, 'tracker/index.html', {
+            'data': updated_data,
+            'error': error
+        })
 
 def search(request):
     if request.method == 'POST':
@@ -25,19 +37,29 @@ def search(request):
 def persist(request):
     if request.method == 'POST':
         form_data = dict(request.POST)
+        meili = Meilisearch()
+        user = 'admin'
+        user_data = meili.search(user)
+        name = form_data.get('name',[])[0]
+
+        for dt in user_data:
+            if dt.get('name') == name:
+                print('Already exists')
+                return redirect('/?error=conflict')
+
         data = {
             'max_val': form_data.get('max_val',[])[0], 
             'min_val': form_data.get('min_val',[])[0], 
             'timmer': form_data.get('timmer',[])[0], 
             'track_time': form_data.get('track_time',[])[0], 
-            'name': form_data.get('name',[])[0], 
+            'name': name.upper(), 
             'price': form_data.get('price',[])[0],
             'id': str(uuid.uuid4()),
-            'user': 'admin',
+            'user': user,
             'created_at_dt': datetime.now().isoformat(),
             'last_check_at_dt': datetime.now().isoformat()
         }
 
-        Meilisearch().write(data)
+        meili.write(data)
         return redirect('/')
     return render(request, 'tracker/index.html')
