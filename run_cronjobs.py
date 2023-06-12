@@ -5,6 +5,6 @@ import time
 # substitui o cronjob. Para isso, abra o terminal na raíz do projeto, ative
 # o pyenv e digite: python3 tracker/cron.py
 if __name__ == "__main__":
-    # while True:
-    mailer()
-        # time.sleep(60)  
+    while True:
+        mailer()
+        time.sleep(60)  

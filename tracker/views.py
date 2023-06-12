@@ -34,7 +34,8 @@ def persist(request):
             'price': form_data.get('price',[])[0],
             'id': str(uuid.uuid4()),
             'user': 'admin',
-            'created_at_dt': datetime.now().isoformat()
+            'created_at_dt': datetime.now().isoformat(),
+            'last_check_at_dt': datetime.now().isoformat()
         }
 
         Meilisearch().write(data)

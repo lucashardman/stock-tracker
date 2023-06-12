@@ -20,3 +20,10 @@ class Meilisearch:
     
     def reset_index(self):
         self.index.delete_all_documents()
+
+    def remove(self, id):
+        self.index.delete_document(id)
+
+    def update(self, document, data):
+        document.update(data)
+        self.index.update_documents([document])
