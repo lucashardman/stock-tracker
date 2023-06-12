@@ -3,6 +3,7 @@ from infrastructure.operations import fetch_stock_price
 from django.shortcuts import render, redirect
 import uuid
 from datetime import datetime
+from django.http import HttpResponse
 
 def index(request):
     data = Meilisearch().search('admin')
@@ -63,3 +64,10 @@ def persist(request):
         meili.write(data)
         return redirect('/')
     return render(request, 'tracker/index.html')
+
+
+def deletestock(request):
+    if request.method == 'POST':
+        stock_id = request.POST.get('id')
+        Meilisearch().remove(stock_id)
+    return redirect('/')

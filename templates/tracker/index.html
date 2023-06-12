@@ -38,12 +38,19 @@
     <div class="search-card-container">
         <div class="card w-50 pt-3">
             <div class="card-body">
+                {% csrf_token %}
                 <h5 class="card-title">{{ dt.name }}</h5>
                 <p class="card-text">Preço: R${{ dt.price }}</p>
                 <p class="card-text">Valor máximo: R${{ dt.max_val }}</p>
                 <p class="card-text">Valor mínimo: R${{ dt.min_val }}</p>
                 <p class="card-text">Frequencia de atualização: {{ dt.timmer }} minutos</p>
                 <p class="card-text">Duração do acompanhamento: {{ dt.track_time }} minutos</p>
+                <!-- <button class="btn-primary" id="delete-stock" data-id="{{ dt.id }}">deletar</button> -->
+                <form action="{% url 'deletestock' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ dt.id }}">
+                    <button class="btn btn-danger" type="submit">Deletar</button>
+                </form>
             </div>
         </div>
     </div>
