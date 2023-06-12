@@ -1,5 +1,5 @@
 from infrastructure.repositories.meilisearch import Meilisearch
-from infrastructure.operations import send_email, fetch_stock_price
+from tracker.infrastructure.operations import send_email, fetch_stock_price
 import datetime
 
 def mailer():

@@ -1,12 +1,12 @@
-from infrastructure.repositories.meilisearch import Meilisearch
-from infrastructure.operations import fetch_stock_price
+from django import db
+from tracker.infrastructure.operations import fetch_stock_price
 from django.shortcuts import render, redirect
 import uuid
 from datetime import datetime
-from django.http import HttpResponse
+from tracker.infrastructure.repositories.stock_manager import StockManager
 
 def index(request):
-    data = Meilisearch().search('admin')
+    data = StockManager().search_by_user('admin')
     updated_data = []
 
     error = request.GET.get('error', '')
@@ -38,9 +38,9 @@ def search(request):
 def persist(request):
     if request.method == 'POST':
         form_data = dict(request.POST)
-        meili = Meilisearch()
+        db = StockManager()
         user = 'admin'
-        user_data = meili.search(user)
+        user_data = db.search_by_user(user)
         name = form_data.get('name',[])[0]
 
         for dt in user_data:
@@ -60,8 +60,7 @@ def persist(request):
             'created_at_dt': datetime.now().isoformat(),
             'last_check_at_dt': datetime.now().isoformat()
         }
-
-        meili.write(data)
+        db.write(data)
         return redirect('/')
     return render(request, 'tracker/index.html')
 
@@ -69,5 +68,6 @@ def persist(request):
 def deletestock(request):
     if request.method == 'POST':
         stock_id = request.POST.get('id')
-        Meilisearch().remove(stock_id)
+        StockManager().remove(stock_id)
+        # Meilisearch().remove(stock_id)
     return redirect('/')

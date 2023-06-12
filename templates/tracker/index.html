@@ -45,7 +45,6 @@
                 <p class="card-text">Valor mínimo: R${{ dt.min_val }}</p>
                 <p class="card-text">Frequencia de atualização: {{ dt.timmer }} minutos</p>
                 <p class="card-text">Duração do acompanhamento: {{ dt.track_time }} minutos</p>
-                <!-- <button class="btn-primary" id="delete-stock" data-id="{{ dt.id }}">deletar</button> -->
                 <form action="{% url 'deletestock' %}" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="{{ dt.id }}">
