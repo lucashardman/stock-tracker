@@ -1,4 +1,3 @@
-from hmac import new
 from infrastructure.repositories.meilisearch import Meilisearch
 from infrastructure.operations import send_email, fetch_stock_price
 import datetime
@@ -8,7 +7,6 @@ def mailer():
     now = datetime.datetime.now()
     meili = Meilisearch()
     data = meili.search('')
-    # meili.reset_index()
     for dt in data:
         start_time = datetime.datetime.fromisoformat(
             dt.get("created_at_dt")
@@ -26,7 +24,6 @@ def mailer():
         stock_name = dt.get("name", "")
         user = dt.get("user", "")
 
-        
         old_price = float(dt.get("price", 0))
 
         if notification_time < now:
@@ -38,11 +35,13 @@ def mailer():
 
                 if new_price > float(dt.get("max_val", old_price)):
                     send_email(
+                        to=user,
                         subject=f"Aleração no preço da ação {stock_name}", 
                         body=f'O preço da ação {stock_name} subiu para {new_price}, atingindo o valor máximo de {dt.get("max_val")}.'
                     )
                 elif new_price < float(dt.get("min_val", old_price)):
                     send_email(
+                        to=user,
                         subject=f"Aleração no preço da ação {stock_name}", 
                         body=f'O preço da ação {stock_name} desceu para {new_price}, atingindo o valor mínimo de {dt.get("min_val")}.'
                     )

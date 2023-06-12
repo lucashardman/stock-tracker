@@ -19,14 +19,14 @@ def fetch_stock_price(symbol):
         }
 
 
-def send_email(subject, body):
+def send_email(to, subject, body):
     try:
         load_dotenv()
         sg = SendGridAPIClient(str(os.getenv("SENDGRID_API_KEY")))
         sg.send(
             Mail(
                 from_email=str(os.getenv("EMAIL_SENDER")),
-                to_emails=str(os.getenv("EMAIL_SENDER")),
+                to_emails=to,
                 subject=subject,
                 plain_text_content=body
             )
