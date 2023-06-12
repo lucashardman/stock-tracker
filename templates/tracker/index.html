@@ -17,9 +17,10 @@
                 <p class="card-text">R${{ stock.price }}</p>
                 <form method="POST" action="{% url 'persist' %}" class="d-flex search-form align-items-center">
                     {% csrf_token %}
-                    <input type="text" name="max_val" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Limite máximo">
-                    <input type="text" name="min_val" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Limite mínimo">
-                    <input type="text" name="timmer" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Periodicidade">
+                    <input type="text" name="max_val" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Limite máximo" pattern="[0-9]+(\.[0-9]+)?" title="Informe um número válido" required>
+                    <input type="text" name="min_val" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Limite mínimo" pattern="[0-9]+(\.[0-9]+)?" title="Informe um número válido" required>
+                    <input type="text" name="timmer" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Periodicidade" pattern="[0-9]+(\.[0-9]+)?" title="Informe um número inteiro válido" required>
+                    <input type="text" name="track_time" class="form-control me-2 rounded-5 my-auto" id="searchBar" placeholder="Duração" pattern="[0-9]+(\.[0-9]+)?" title="Informe um número inteiro válido" required>
                     <input type="hidden" name="name" value="{{ stock.name }}">
                     <input type="hidden" name="price" value="{{ stock.price }}">
                     <button type="submit" class="search-btn btn btn-primary rounded-5 my-auto">Salvar</button>
@@ -34,9 +35,10 @@
             <div class="card-body">
                 <h5 class="card-title">{{ dt.name }}</h5>
                 <p class="card-text">Preço: R${{ dt.price }}</p>
-                <p class="card-text">Frequencia de atualização: {{ dt.timmer }} minutos</p>
                 <p class="card-text">Valor máximo: R${{ dt.max_val }}</p>
                 <p class="card-text">Valor mínimo: R${{ dt.min_val }}</p>
+                <p class="card-text">Frequencia de atualização: {{ dt.timmer }} minutos</p>
+                <p class="card-text">Duração do acompanhamento: {{ dt.track_time }} minutos</p>
             </div>
         </div>
     </div>
