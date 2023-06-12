@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pip_conf_index_global"
+
+[packages]
+django = {version = "*", index = "pip_conf_index_global"}
+python-dotenv = {version = "*", index = "pip_conf_index_global"}
+yfinance = {version = "*", index = "pip_conf_index_global"}
+meilisearch = {version = "*", index = "pip_conf_index_global"}
+django-crontab = {version = "*", index = "pip_conf_index_global"}
+sendgrid = {version = "*", index = "pip_conf_index_global"}
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
