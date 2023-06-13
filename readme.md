@@ -52,7 +52,7 @@ secret_key = secrets.token_hex(32)
 print(secret_key)
 ```
 
-Qual método de disparo de e-mail:
+Qual método de disparo de e-mail?
 - SEND_EMAIL_METHOD: "SENDGRID" ou "SMTPLIB"
 
 Caso queira utilizar Sendgrid para o envio de e-mails:
