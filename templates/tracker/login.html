@@ -17,7 +17,9 @@
         </div>
     </form>
     {% if error_message %}
-        <p>{{ error_message }}</p>
+        <div class="alert alert-danger error-container" role="alert">
+            {{ error_message }}
+        </div>
     {% endif %}
 </section>
 {% endblock %}
