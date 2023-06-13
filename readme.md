@@ -57,7 +57,7 @@ Qual método de disparo de e-mail?
 
 Caso queira utilizar Sendgrid para o envio de e-mails:
 - SENDGRID_API_KEY: api_key da sua conta do sendgrid
-- SENDGRID_SENDER_EMAIL: um e-mail configurado com o sendgrid que será usado para disparar e-mails.
+- SENDGRID_EMAIL_SENDER: um e-mail configurado com o sendgrid que será usado para disparar e-mails.
 
 Caso queira utilizar smtplib para o envio de e-mails:
 - SMTP_SENDER_EMAIL: um e-mail sem 2FA que será usado para disparar e-mails.

@@ -28,7 +28,7 @@ def send_email(to, subject, body):
     print(str(os.getenv("SEND_EMAIL_METHOD", "")))
     if os.getenv("SEND_EMAIL_METHOD", "") == "SMTPLIB":
         try:
-            sender_email = str(os.getenv("SENDER_EMAIL", ""))
+            sender_email = str(os.getenv("SMTP_SENDER_EMAIL", ""))
             smtp_server = str(os.getenv("SMTP_SERVER", ""))
             smtp_port = int(os.getenv("SMTP_PORT", 0))
             smtp_username = str(os.getenv("SMTP_USERNAME", ""))
@@ -53,7 +53,7 @@ def send_email(to, subject, body):
             sg = SendGridAPIClient(str(os.getenv("SENDGRID_API_KEY")))
             sg.send(
                 Mail(
-                    from_email=str(os.getenv("EMAIL_SENDER")),
+                    from_email=str(os.getenv("SENDGRID_EMAIL_SENDER")),
                     to_emails=to,
                     subject=subject,
                     plain_text_content=body

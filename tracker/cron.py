@@ -37,13 +37,13 @@ def mailer():
                     send_email(
                         to=user,
                         subject=f"Aleração no preço da ação {stock_name}", 
-                        body=f'O preço da ação {stock_name} subiu para {new_price}, atingindo o valor máximo de {dt.get("max_val")}.'
+                        body=f'O preço da ação {stock_name} subiu para {new_price}, atingindo o valor máximo de US${dt.get("max_val")}.'
                     )
                 elif new_price < float(dt.get("min_val", old_price)):
                     send_email(
                         to=user,
                         subject=f"Aleração no preço da ação {stock_name}", 
-                        body=f'O preço da ação {stock_name} desceu para {new_price}, atingindo o valor mínimo de {dt.get("min_val")}.'
+                        body=f'O preço da ação {stock_name} desceu para {new_price}, atingindo o valor mínimo de US${dt.get("min_val")}.'
                     )
                 db.update(dt, {
                     "last_check_at_dt": datetime.datetime.now().isoformat(),
