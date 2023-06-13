@@ -42,7 +42,7 @@ pipenv shell
 
 4. Adicione as variaveis de ambiente:
 
-### Crie um arquivo .env na raíz do projeto com o sequinte conteúdo.
+Crie um arquivo .env na raíz do projeto com o sequinte conteúdo.
 
 - DJANGO_SECRET_KEY: secret_key do django. Pode ser gerado com o seguinte código:
 ```python
