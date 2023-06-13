@@ -1,9 +1,8 @@
-from django import db
+from tracker.infrastructure.repositories.stock_manager import StockManager
 from tracker.infrastructure.operations import fetch_stock_price
 from django.shortcuts import render, redirect
-import uuid
 from datetime import datetime
-from tracker.infrastructure.repositories.stock_manager import StockManager
+import uuid
 
 def index(request):
     data = StockManager().search_by_user('admin')
@@ -69,5 +68,4 @@ def deletestock(request):
     if request.method == 'POST':
         stock_id = request.POST.get('id')
         StockManager().remove(stock_id)
-        # Meilisearch().remove(stock_id)
     return redirect('/')

@@ -1,5 +1,5 @@
-from django.urls import path
 from tracker.views import deletestock, index, search, persist
+from django.urls import path
 
 urlpatterns = [
     path('', index),
