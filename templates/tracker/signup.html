@@ -1,11 +1,29 @@
 {% extends 'tracker/base.html' %}
+{% load custom_filters %}
 {% load static %}
 {% block content %}
 <section class="banner" id="login">
-    <form method="post">
+    <form method="post" class="signup-form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
+        <div class="form-group bg-white signup-container">
+            {% for field in form %}
+            <div class="p-3">
+                <label class="text-dark fw-bold" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field|add_class:"form-control" }}
+                {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                <ul class="errorlist">
+                {% for error in field.errors %}
+                    <li class="text-danger">{{ error }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary m-3">Enviar</button>
+        </div>
     </form>
 </section>
 {% endblock %}

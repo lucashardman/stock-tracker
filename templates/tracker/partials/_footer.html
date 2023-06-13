@@ -26,6 +26,21 @@
             <div class="col-12 col-sm-6 text-center text-sm-start pt-5">
                 <img src="{% static '/assets/logo.svg' %}" alt="Logo" />
             </div>
+            <div class="col-12 col-sm-6 text-center text-sm-end pt-5">
+                <span class="navbar-text d-none d-lg-block">
+                  {% if user.is_authenticated %}
+                  <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="vvd">Sair</button>
+                  </form>
+                  {% else %}
+                  <form method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    <button class="vvd">Registrar</button>
+                  </form>
+                  {% endif %}
+                </span>
+              </div>
         </div>
         <div class="row text-center">
             <p>all rights reserved</p>

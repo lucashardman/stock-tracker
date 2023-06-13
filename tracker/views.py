@@ -9,7 +9,7 @@ import uuid
 
 @login_required(login_url='/login/')
 def index(request):
-    data = StockManager().search_by_user('admin')
+    data = StockManager().search_by_user(request.user.email)
     updated_data = []
 
     error = request.GET.get('error', '')
@@ -43,7 +43,7 @@ def persist(request):
     if request.method == 'POST':
         form_data = dict(request.POST)
         db = StockManager()
-        user = 'admin'
+        user = request.user.email
         user_data = db.search_by_user(user)
         name = form_data.get('name',[])[0]
 
