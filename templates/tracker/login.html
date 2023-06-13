@@ -1,0 +1,17 @@
+{% extends 'tracker/base.html' %}
+{% load static %}
+{% block content %}
+<section class="banner" id="login">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <input type="submit" value="Login">
+    </form>
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+</section>
+{% endblock %}

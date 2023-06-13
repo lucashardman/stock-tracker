@@ -21,7 +21,17 @@
           </li>
         </ul> -->
         <span class="navbar-text d-none d-lg-block">
-          <button class="vvd" onClick="scrollToContact()">Contact</button>
+          {% if user.is_authenticated %}
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="vvd" onClick="scrollToContact()">Sair</button>
+          </form>
+          {% else %}
+          <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <button class="vvd" onClick="scrollToContact()">Registrar</button>
+          </form>
+          {% endif %}
         </span>
       </div>
     </div>

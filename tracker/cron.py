@@ -1,4 +1,3 @@
-from hmac import new
 from tracker.infrastructure.operations import send_email, fetch_stock_price
 from tracker.infrastructure.repositories.stock_manager import StockManager
 import datetime

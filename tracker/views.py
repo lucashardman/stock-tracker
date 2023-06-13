@@ -1,9 +1,13 @@
 from tracker.infrastructure.repositories.stock_manager import StockManager
 from tracker.infrastructure.operations import fetch_stock_price
+from tracker.forms import SignupForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from datetime import datetime
 import uuid
 
+@login_required(login_url='/login/')
 def index(request):
     data = StockManager().search_by_user('admin')
     updated_data = []
@@ -20,6 +24,7 @@ def index(request):
             'error': error
         })
 
+@login_required(login_url='/login/')
 def search(request):
     if request.method == 'POST':
         form_data = request.POST
@@ -33,7 +38,7 @@ def search(request):
         request.session['stock'] = ''
         return render(request, 'tracker/index.html')
     
-
+@login_required(login_url='/login/')
 def persist(request):
     if request.method == 'POST':
         form_data = dict(request.POST)
@@ -55,7 +60,7 @@ def persist(request):
             'name': name.upper(), 
             'price': form_data.get('price',[])[0],
             'id': str(uuid.uuid4()),
-            'user': user,
+            'user': request.user.email,
             'created_at_dt': datetime.now().isoformat(),
             'last_check_at_dt': datetime.now().isoformat()
         }
@@ -63,9 +68,35 @@ def persist(request):
         return redirect('/')
     return render(request, 'tracker/index.html')
 
-
+@login_required(login_url='/login/')
 def deletestock(request):
     if request.method == 'POST':
         stock_id = request.POST.get('id')
         StockManager().remove(stock_id)
     return redirect('/')
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')  # Redirect to your desired page
+        else:
+            error_message = 'Invalid username or password'
+            return render(request, 'tracker/login.html', {'error_message': error_message})
+    else:
+        return render(request, 'tracker/login.html')
+    
+def signup(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/')
+    else:
+        form = SignupForm()
+    return render(request, 'tracker/signup.html', {'form': form})
