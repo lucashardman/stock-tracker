@@ -26,8 +26,7 @@ def send_email(to, subject, body):
 
     load_dotenv()
     print(str(os.getenv("SEND_EMAIL_METHOD", "")))
-    if os.getenv("SEND_EMAIL_METHOD", "") == "SMTP":
-        print("aquiiiii")
+    if os.getenv("SEND_EMAIL_METHOD", "") == "SMTPLIB":
         try:
             sender_email = str(os.getenv("SENDER_EMAIL", ""))
             smtp_server = str(os.getenv("SMTP_SERVER", ""))
@@ -64,4 +63,4 @@ def send_email(to, subject, body):
         except Exception as e:
             print('Error sending email:', str(e))
     else:
-        print("Set SEND_EMAIL_METHOD to SMTP or SENDGRID in .env file")
+        print("Set SEND_EMAIL_METHOD to SMTPLIB or SENDGRID in .env file")

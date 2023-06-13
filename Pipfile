@@ -7,7 +7,6 @@ name = "pip_conf_index_global"
 django = {version = "*", index = "pip_conf_index_global"}
 python-dotenv = {version = "*", index = "pip_conf_index_global"}
 yfinance = {version = "*", index = "pip_conf_index_global"}
-meilisearch = {version = "*", index = "pip_conf_index_global"}
 django-crontab = {version = "*", index = "pip_conf_index_global"}
 sendgrid = {version = "*", index = "pip_conf_index_global"}
 
